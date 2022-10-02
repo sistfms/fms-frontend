@@ -21,8 +21,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: pm2 stop "fms-frontend"
-      - run: pm2 delete "fms-backend"
+      
       - run: npm install
       - run: npm run build
       - run: pm2 start --name "fms-frontend" npm -- run deploy --
