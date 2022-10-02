@@ -1,0 +1,28 @@
+name: FMS Frontend CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: pm2 stop "fms-frontend"
+      - run: pm2 delete "fms-backend"
+      - run: npm install
+      - run: npm run build
+      - run: pm2 start --name "fms-frontend" npm -- run deploy --
