@@ -15,6 +15,7 @@ export const login = (email, password) => async (dispatch) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        'WithCredentials': true,
       },
     };
 
@@ -43,6 +44,7 @@ export const loadUser = () => async (dispatch) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        'WithCredentials': true,
       },
     };
 
@@ -52,6 +54,7 @@ export const loadUser = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
+    console.log("login Error", error)
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:

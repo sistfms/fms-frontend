@@ -4,7 +4,8 @@ import {
   Container,
   FormControl,
   Form,
-  Button
+  Button,
+  Alert
 } from 'react-bootstrap';
 import {useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -37,6 +38,7 @@ const Login = () => {
   return (
     <Container className="loginContainer">
       <h1>Login</h1>
+      {userLogin.error && <Alert className="mt-3" variant="danger" style={{display: 'block', width: '400px', paddingTop: '4px', paddingBottom:'4px'}}>{userLogin.error}</Alert>}
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="emailId">
           <Form.Label>Email Address</Form.Label>
