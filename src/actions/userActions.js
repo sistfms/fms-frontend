@@ -19,7 +19,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(`${GATEWAY_URL}/login`, {email, password}, config);
+    const { data } = await axios.post(`/login`, {email, password}, config);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
@@ -48,7 +48,7 @@ export const loadUser = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`${GATEWAY_URL}/refresh`, config);
+    const { data } = await axios.get(`/refresh`, config);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,

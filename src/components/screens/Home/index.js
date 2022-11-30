@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 const Home = () => {
   const navigate = useNavigate();
   const userLogin = useSelector(state => state.userLogin);
@@ -10,6 +11,7 @@ const Home = () => {
     if (!userInfo) {
       navigate('/login');
     }
+
   }, [userInfo]);
 
   return (
