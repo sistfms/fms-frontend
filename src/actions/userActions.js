@@ -4,6 +4,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  USER_LOAD_FAILED,
 } from '../constants/userLoginConstants';
 import { GATEWAY_URL } from '../constants'
 export const login = (email, password) => async (dispatch) => {
@@ -56,12 +57,28 @@ export const loadUser = () => async (dispatch) => {
   } catch (error) {
     console.log("login Error", error)
     dispatch({
-      type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      type: USER_LOAD_FAILED,
     });
   }
 };
+
+export const logoutUser = () => async (dispatch) => {
+  dispatch({
+    type: USER_LOGIN_REQUEST
+  })
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'WithCredentials': true,
+      },
+    };
+    await axios.get(`/logout`, {}, config);
+    dispatch({
+      type: USER_LOGOUT
+    })
+  } catch (error) {
+    console.log("logout error", error)
+  }
+}
   

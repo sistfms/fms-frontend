@@ -1,0 +1,17 @@
+.batch-container{
+  margin: 1em 2em;
+}
+
+.batch-list {
+  margin: 2em 0;
+}
+
+.page-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form > div {
+  margin-top: .5rem;
+}
