@@ -6,6 +6,7 @@ import { Container, Alert, Table, Button } from 'react-bootstrap'
 import './style.css'
 import LoadingIndicator from '../../LoadingIndicator';
 import CreateBatchModal from './CreateBatchModal';
+import Dropdown from 'react-bootstrap/Dropdown';
 const Batches = () => {
   const navigate = useNavigate();
   const userLogin = useSelector(state => state.userLogin);

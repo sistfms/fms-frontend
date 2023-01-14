@@ -23,6 +23,8 @@ function Header() {
             { userLogin.userInfo ? <>
               <Nav.Link onClick={() => navigate('/')}>Home</Nav.Link>
               <Nav.Link onClick={() => navigate('/batches')}>Batches</Nav.Link>
+              <Nav.Link onClick={() => navigate('/departments')}>Departments</Nav.Link>
+              <Nav.Link onClick={() => navigate('/students')}>Student</Nav.Link>
               <NavDropdown title={userLogin.userInfo.name} id="basic-nav-dropdown">
                 <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="#" onClick={logoutHandler}>

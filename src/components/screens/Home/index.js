@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import Departments from '../Departments';
 const Home = () => {
   const navigate = useNavigate();
   const userLogin = useSelector(state => state.userLogin);
@@ -21,6 +22,8 @@ const Home = () => {
     <p>Hello Sefali</p>
     <h1>Hello</h1>
     <Button>My Button</Button>
+
+    
     </>
   )
 }

@@ -7,7 +7,7 @@ import Header from './components/layouts/Header';
 import Home from './components/screens/Home';
 import Login from './components/screens/Login';
 import Batches from './components/screens/Batches';
-
+import Students from './components/screens/Students';
 // COMPONENTS
 
 
@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { loadUser } from './actions/userActions';
 import LoadingIndicator from './components/LoadingIndicator';
+import Departments from './components/screens/Departments';
+
 
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/batches" element={<Batches />} />
+              <Route path="/departments" element={<Departments />} />
+              <Route path="/students" element={<Students />} />
           </Routes>
       </>} 
     </BrowserRouter>
