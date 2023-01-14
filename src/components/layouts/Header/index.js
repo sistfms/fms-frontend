@@ -25,6 +25,8 @@ function Header() {
               <Nav.Link onClick={() => navigate('/batches')}>Batches</Nav.Link>
               <Nav.Link onClick={() => navigate('/departments')}>Departments</Nav.Link>
               <Nav.Link onClick={() => navigate('/students')}>Student</Nav.Link>
+              <Nav.Link onClick={() => navigate('/batchfee')}>BatchFee</Nav.Link>
+              <Nav.Link onClick={() => navigate('/payment')}>Payment</Nav.Link>
               <NavDropdown title={userLogin.userInfo.name} id="basic-nav-dropdown">
                 <NavDropdown.Item href="#profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item href="#" onClick={logoutHandler}>

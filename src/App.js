@@ -8,6 +8,7 @@ import Home from './components/screens/Home';
 import Login from './components/screens/Login';
 import Batches from './components/screens/Batches';
 import Students from './components/screens/Students';
+import Payment from './components/screens/Payment';
 // COMPONENTS
 
 
@@ -17,7 +18,7 @@ import { useEffect } from 'react';
 import { loadUser } from './actions/userActions';
 import LoadingIndicator from './components/LoadingIndicator';
 import Departments from './components/screens/Departments';
-
+import BatchFee from './components/screens/BatchFee';
 
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
               <Route path="/batches" element={<Batches />} />
               <Route path="/departments" element={<Departments />} />
               <Route path="/students" element={<Students />} />
+              <Route path="/batchfee" element={<BatchFee />} />
+              <Route path="/payment" element={<Payment />} />
           </Routes>
       </>} 
     </BrowserRouter>
