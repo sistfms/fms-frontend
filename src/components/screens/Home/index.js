@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 const Home = () => {
   const navigate = useNavigate();
@@ -15,7 +16,12 @@ const Home = () => {
   }, [userInfo]);
 
   return (
+    <>
     <div>Home</div>
+    <p>Hello Sefali</p>
+    <h1>Hello</h1>
+    <Button>My Button</Button>
+    </>
   )
 }
 
