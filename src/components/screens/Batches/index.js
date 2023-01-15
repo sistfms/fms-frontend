@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import './style.css'
 import LoadingIndicator from '../../LoadingIndicator';
 import CreateBatchModal from './CreateBatchModal';
-import { Table, Tag, Button, Alert } from 'antd';
+import { Table, Tag, Button, Alert, message } from 'antd';
+import { UsergroupAddOutlined } from '@ant-design/icons';
 const Batches = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
@@ -33,11 +35,11 @@ const Batches = () => {
 
   const batchCreateCallback = (data) => {
     setShow(false);
-    if(data.success){
-      alert("Batch Created Successfully")
+    if(data.status >= 200 && data.status < 300){
+      messageApi.success("Batch Created Successfully");
       fetchBatches();
     }else{
-      alert("Failed to Create Batch");
+      messageApi.error("Error: " + data.message || "Failed to create batch");
     }
   }
 
@@ -52,6 +54,7 @@ const Batches = () => {
   }, [userInfo]);
 
   const columns = [
+
     {
       title: 'Batch ID',
       dataIndex: 'id',
@@ -100,13 +103,13 @@ const Batches = () => {
   return (
     <>
     <div className="batch-container">
+      {contextHolder}
       <div className='page-header'>
-        <Button  onClick={() => setShow(true)}>Create Batch</Button>
+        <h2>Batches</h2>
+        <Button type="primary" icon={<UsergroupAddOutlined />}  onClick={() => setShow(true)}>Create Batch</Button>
       </div>
       <div className="batch-list">
-        {loading && <LoadingIndicator />}
-        {error && <Alert variant='danger'>{error}</Alert>}
-        <Table columns={columns} dataSource={batches} />
+        <Table loading={loading} columns={columns} dataSource={batches} />
       </div>
     </div>
     <CreateBatchModal visible={show} setVisible={setShow} callback={batchCreateCallback}/>

@@ -11,7 +11,7 @@ import Payment from './components/screens/Payment';
 
 // COMPONENTS
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { Layout, theme } from 'antd';
+import { Layout, theme, message } from 'antd';
 
 // functions
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +24,7 @@ import BatchFee from './components/screens/BatchFee';
 const { Header, Content, Footer, Sider } = Layout;
 
 const Root = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -41,6 +42,7 @@ const Root = () => {
     <Layout hasSider>
       <LeftNav />
       <Container>
+          {contextHolder}
           <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer,}}>
               {userLogin.loading ? <LoadingIndicator /> : <>
                 <Routes>
