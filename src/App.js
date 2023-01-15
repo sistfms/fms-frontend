@@ -1,7 +1,6 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-
 // LAYOUTS
-import Header from './components/layouts/Header';
+import LeftNav from './components/layouts/LeftNav';
+import Container from './components/layouts/Container';
 
 // SCREENS
 import Home from './components/screens/Home';
@@ -9,8 +8,10 @@ import Login from './components/screens/Login';
 import Batches from './components/screens/Batches';
 import Students from './components/screens/Students';
 import Payment from './components/screens/Payment';
-// COMPONENTS
 
+// COMPONENTS
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Layout, theme } from 'antd';
 
 // functions
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,9 +21,13 @@ import LoadingIndicator from './components/LoadingIndicator';
 import Departments from './components/screens/Departments';
 import BatchFee from './components/screens/BatchFee';
 
+const { Header, Content, Footer, Sider } = Layout;
 
-function App() {
-  
+const Root = () => {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
   const dispatch = useDispatch();
@@ -32,26 +37,34 @@ function App() {
       dispatch(loadUser())
     }
   }, []);
-
-
   return (
-    <>
-    <BrowserRouter>
-      <Header />
-      {userLogin.loading ? <LoadingIndicator /> : <>
-          <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/batches" element={<Batches />} />
-              <Route path="/departments" element={<Departments />} />
-              <Route path="/students" element={<Students />} />
-              <Route path="/batchfee" element={<BatchFee />} />
-              <Route path="/payment" element={<Payment />} />
-          </Routes>
-      </>} 
-    </BrowserRouter>
-    </>
+    <Layout hasSider>
+      <LeftNav />
+      <Container>
+          <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer,}}>
+              {userLogin.loading ? <LoadingIndicator /> : <>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/batches" element={<Batches />} />
+                    <Route path="/departments" element={<Departments />} />
+                    <Route path="/students" element={<Students />} />
+                    <Route path="/batchfee" element={<BatchFee />} />
+                    <Route path="/payment" element={<Payment />} />
+                </Routes>
+                </>}
+          </div>
+        </Container>
+      </Layout>
+  );
+};
+
+
+const App = () => {
+  return (
+  <BrowserRouter>
+    <Root />
+  </BrowserRouter>
   );
 }
-
 export default App;
