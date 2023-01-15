@@ -102,15 +102,6 @@ const CreateBatchModal = ({visible, setVisible, callback}) => {
               style={{ width: '100%' }}
             />
           </Form.Item>
-          <Form.Item
-            label="Batch Name"
-            name="name"
-            help="Batch Name will be automatically generated."
-            required
-            >
-              {name && <Input value={name}/>}
-              {!name && <Input placeholder="Batch Name" />}
-          </Form.Item>
           
           <Form.Item
             label="Start Year and End Year"
@@ -118,6 +109,15 @@ const CreateBatchModal = ({visible, setVisible, callback}) => {
             required
             >
               <DatePicker.RangePicker format="YYYY" onChange={handleYearChange} picker="year" style={{width: '100%'}}  />
+          </Form.Item>
+          <Form.Item
+            label="Batch Name"
+            name="name"
+            help="Batch Name are automatically generated based upon the selected department and start year."
+            required
+            >
+              {name && <Input disabled value={name}/>}
+              {!name && <Input disabled placeholder="Batch Name" />}
           </Form.Item>
         </Form>
     </Modal>

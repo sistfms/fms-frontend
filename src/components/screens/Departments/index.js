@@ -1,38 +1,93 @@
-import React from "react";
-import {Table,Button, Container} from 'react-bootstrap';
-import "./style.css";
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
+import './style.css'
+import CreateDepatmentModal from './CreateDepartmentModal';
+import { Table, Button, message } from 'antd';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faUniversity} from '@fortawesome/free-solid-svg-icons';
 
 
 const Departments = () => {
-    return (
-        <Container>
-            <div className="title">
-        <h1> Departments</h1>
-        <Button>Create Department</Button>
-        </div>
-        <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Sl No</th>
-          <th>Department Id</th>
-          <th>Department Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>01</td>
-          <td>Computer Engineering</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>02</td>
-          <td>Civil Engineering</td>
-        </tr>
-      </tbody>
-    </Table>
-        </Container>
-    )
+  const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
 
+  const [departments, setDepartments] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+
+  // modal
+  const [show, setShow] = useState(false);
+
+  const fetchDepartments = async () => {
+    setLoading(true);
+    try {
+      const { data } = await axios.get('/departments');
+      setDepartments(data);
+    } catch (error) {
+      messageApi.error("Error: " + error.message || "Failed to fetch Departments");
+      console.log(error);
+    } finally{
+      setLoading(false);
+    }
+  }
+
+  const createDepartmentCallback = (data) => {
+    setShow(false);
+    if(data.status >= 200 && data.status < 300){
+      messageApi.success("Department Created Successfully");
+      fetchDepartments();
+    }else{
+      messageApi.error("Error: " + data.message || "Failed to create Department");
+    }
+  }
+  
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login');
+    }else{
+      fetchDepartments();
+    }
+
+  }, [userInfo]);
+
+  const columns = [
+
+    {
+      title: 'Department ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Department Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: (text, record) => <a href={`/batches/${record.id}`}>{text}</a>,
+    },
+    {
+      title: 'Department Code',
+      dataIndex: 'code',
+      key: 'code',
+    }
+  ];
+
+  return (
+    <>
+    <div className="batch-container">
+      {contextHolder}
+      <div className='page-header'>
+        <h2>Departments</h2>
+        <Button type="primary" icon={<FontAwesomeIcon icon={faUniversity} style={{marginRight: '.5em'}} />}  onClick={() => setShow(true)}>Create Department</Button>
+      </div>
+      <div className="batch-list">
+        <Table loading={loading} columns={columns} dataSource={departments} />
+      </div>
+    </div>
+    <CreateDepatmentModal visible={show} setVisible={setShow} callback={createDepartmentCallback}/>
+    </>
+  )
 }
+
 export default Departments;
