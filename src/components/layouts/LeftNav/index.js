@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom'
 import { DashboardOutlined, UsergroupDeleteOutlined } from '@ant-design/icons';
@@ -10,11 +11,26 @@ import {
   faPowerOff,
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons';
+
+import {useSelector, useDispatch} from 'react-redux';
+import { logoutUser } from '../../../actions/userActions';
+
+
+
 const {Sider} = Layout;
 
 const LeftNav = () => {
   const navigate = useNavigate();
-  const items = [
+  const userLogin = useSelector(state => state.userLogin);
+  const dispatch = useDispatch();
+  const logoutHandler = () => {
+    console.log('logout');
+    dispatch(logoutUser())
+  };
+
+  const [selectedKey, setSelectedKey] = useState('/');
+
+  const items = userLogin.userInfo ?  [
     {
       key: '/',
       icon: <DashboardOutlined />,
@@ -50,7 +66,7 @@ const LeftNav = () => {
     {
       key: 'Profile',
       icon: <FontAwesomeIcon icon={faUserCircle} />,
-      label: 'Bijay Sharma',
+      label: userLogin.userInfo.name,
       style: { position: 'absolute', bottom: 35, marginBottom: 10 }
     },
     {
@@ -59,7 +75,7 @@ const LeftNav = () => {
       label: 'Logout',
       style: { position: 'absolute', bottom: 0, marginBottom: 10 }
     }
-  ]
+  ] : [];
 
   return (
     <Sider
@@ -73,8 +89,19 @@ const LeftNav = () => {
         }}
       >
         <div className="site-header">SIST FMS</div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} onSelect = {
+        <Menu theme="dark" 
+          mode="inline" 
+          items={items} 
+          defaultSelectedKeys={['/']}
+          selectedKeys={[selectedKey]}
+          onSelect = {
           (item) => {
+            if(item.key === 'logout') {
+              logoutHandler();
+              selectedKey = '/';
+              return;
+            }
+            setSelectedKey(item.key);
             navigate(item.key)
           }
         }/>
