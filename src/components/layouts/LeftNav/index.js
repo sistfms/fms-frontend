@@ -9,7 +9,8 @@ import {
   faRupee,
   faUserGraduate,
   faPowerOff,
-  faUserCircle
+  faUserCircle,
+  faSignIn
 } from '@fortawesome/free-solid-svg-icons';
 
 import {useSelector, useDispatch} from 'react-redux';
@@ -75,7 +76,13 @@ const LeftNav = () => {
       label: 'Logout',
       style: { position: 'absolute', bottom: 0, marginBottom: 10 }
     }
-  ] : [];
+  ] : [
+    {
+      key: '/login',
+      icon: <FontAwesomeIcon icon={faSignIn} />,
+      label: 'Login',
+    }
+  ];
 
   return (
     <Sider
@@ -98,11 +105,11 @@ const LeftNav = () => {
           (item) => {
             if(item.key === 'logout') {
               logoutHandler();
-              selectedKey = '/';
-              return;
+              selectedKey = '/login';
+            }else{
+              setSelectedKey(item.key);
+              navigate(item.key)
             }
-            setSelectedKey(item.key);
-            navigate(item.key)
           }
         }/>
       </Sider>
