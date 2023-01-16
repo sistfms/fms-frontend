@@ -3,9 +3,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import './style.css'
-import LoadingIndicator from '../../LoadingIndicator';
 import CreateBatchModal from './CreateBatchModal';
-import { Table, Tag, Button, Alert, message } from 'antd';
+import { Table, Tag, Button, message } from 'antd';
 import { UsergroupAddOutlined } from '@ant-design/icons';
 const Batches = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -15,7 +14,6 @@ const Batches = () => {
 
   const [batches, setBatches] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState('');
 
   // modal
   const [show, setShow] = useState(false);
@@ -26,7 +24,7 @@ const Batches = () => {
       const { data } = await axios.get('/batches');
       setBatches(data);
     } catch (error) {
-      setError("Failed to fetch batches");
+      messageApi.error("Error: " + error.message || "Failed to fetch Batches");
       console.log(error);
     } finally{
       setLoading(false);
@@ -64,7 +62,7 @@ const Batches = () => {
       title: 'Batch Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text, record) => <a href={`/batches/${record.id}`}>{text}</a>,
+      render: (name, record) => <a onClick={() => navigate(`/batches/${record.id}`)}>{name}</a>
     },
     {
       title: 'Department',

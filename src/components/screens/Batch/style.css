@@ -1,0 +1,17 @@
+.segmented-tab-container{
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  height: 100%;
+  padding: 1em;
+}
+
+.segmented-tab-container h5{
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.table-container{
+  margin-top: 1em;
+}

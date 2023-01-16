@@ -8,6 +8,8 @@ import Login from './components/screens/Login';
 import Batches from './components/screens/Batches';
 import Students from './components/screens/Students';
 import Payment from './components/screens/Payment';
+import Batch from './components/screens/Batch';
+
 
 // COMPONENTS
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
@@ -20,8 +22,6 @@ import { loadUser } from './actions/userActions';
 import LoadingIndicator from './components/LoadingIndicator';
 import Departments from './components/screens/Departments';
 import BatchFee from './components/screens/BatchFee';
-
-const { Header, Content, Footer, Sider } = Layout;
 
 const Root = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -43,7 +43,7 @@ const Root = () => {
       <LeftNav />
       <Container>
           {contextHolder}
-          <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer,}}>
+          <div style={{ padding: 24, background: colorBgContainer,}}>
               {userLogin.loading ? <LoadingIndicator /> : <>
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -53,6 +53,7 @@ const Root = () => {
                     <Route path="/students" element={<Students />} />
                     <Route path="/batchfee" element={<BatchFee />} />
                     <Route path="/payment" element={<Payment />} />
+                    <Route path="/batches/:id" element={<Batch />} />
                 </Routes>
                 </>}
           </div>
