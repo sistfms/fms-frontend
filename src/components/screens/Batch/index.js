@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import BackButton from '../../BackButton';
 import AddStudentModal from './AddStudentModal';
+import AddFeeModal from './AddFeeModal';
 
 const segmentedOptions = [
   {
@@ -232,7 +233,7 @@ const Batch = () => {
           
           <div className='page-header'>
             <h5>Batch Fees</h5>
-            <Button type='primary'>Add Fee</Button>
+            <Button type='primary' onClick={()=>setAddFeeModalVisible(true)}>Add Fee</Button>
           </div>
          
           <div className='table-container'>
@@ -244,6 +245,7 @@ const Batch = () => {
       </>
       )}
       <AddStudentModal visible={addStudentModalVisible} setVisible={setAddStudentModalVisible} callback={createStudentCallback} />
+      <AddFeeModal visible={addFeeModalVisible} setVisible={setAddFeeModalVisible} />
     </>
   )
 };
