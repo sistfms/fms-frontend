@@ -22,91 +22,94 @@ const segmentedOptions = [
   },
 ]
 
-const studentColumns = [
-  {
-    title: 'Student ID',
-    dataIndex: 'id',
-    key: 'id',
-  },
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Roll Number',
-    dataIndex: 'roll_number',
-    key: 'roll_number',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Phone',
-    dataIndex: 'phone_number',
-    key: 'phone_number',
-  },
-  {
-    title: 'status',
-    dataIndex: 'status',
-    key: 'status',
-    render: (status) => {
-      let color = status === 'active' ? 'green' : 'volcano';
-      return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
-        </Tag>
-      );
-    }
-  },
-];
 
-const feeColumns = [
-  {
-    title: 'Fee ID',
-    dataIndex: 'id',
-    key: 'id',
-  },
-  {
-    title: 'Fee Name',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Fee Amount',
-    dataIndex: 'amount',
-    key: 'amount',
-  },
-  {
-    title: 'Created At',
-    dataIndex: 'created_at',
-    key: 'created_at',
-    render: (created_at) => {
-      return (
-        <span key={created_at}>
-          {new Date(created_at).toDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}
-        </span>
-      );
-    }
-  },
-  {
-    title: 'Due Date',
-    dataIndex: 'due_date',
-    key: 'due_date',
-    render: (due_date) => {
-      let color = due_date < new Date() ? 'red' : 'green';
-      return (
-        <span style={{color}} key={due_date}>
-          {new Date(due_date).toDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}
-        </span>
-      );
-    }
-  },
-];
 
 const Batch = () => {
+
+  const studentColumns = [
+    {
+      title: 'Student ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Roll Number',
+      dataIndex: 'roll_number',
+      key: 'roll_number',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Phone',
+      dataIndex: 'phone_number',
+      key: 'phone_number',
+    },
+    {
+      title: 'status',
+      dataIndex: 'status',
+      key: 'status',
+      render: (status) => {
+        let color = status === 'active' ? 'green' : 'volcano';
+        return (
+          <Tag color={color} key={status}>
+            {status.toUpperCase()}
+          </Tag>
+        );
+      }
+    },
+  ];
+  
+  const feeColumns = [
+    {
+      title: 'Fee ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: 'Fee Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: (name, record) => <a onClick={() => navigate(`/fees/${record.id}`)}>{name}</a>
+    },
+    {
+      title: 'Fee Amount',
+      dataIndex: 'amount',
+      key: 'amount',
+    },
+    {
+      title: 'Created At',
+      dataIndex: 'created_at',
+      key: 'created_at',
+      render: (created_at) => {
+        return (
+          <span key={created_at}>
+            {new Date(created_at).toDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}
+          </span>
+        );
+      }
+    },
+    {
+      title: 'Due Date',
+      dataIndex: 'due_date',
+      key: 'due_date',
+      render: (due_date) => {
+        let color = due_date < new Date() ? 'red' : 'green';
+        return (
+          <span style={{color}} key={due_date}>
+            {new Date(due_date).toDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})}
+          </span>
+        );
+      }
+    },
+  ];
 
   const location = useLocation();
   const batchId = location.pathname.split('/')[2];

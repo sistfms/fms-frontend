@@ -9,6 +9,7 @@ import Batches from './components/screens/Batches';
 import Students from './components/screens/Students';
 import Payment from './components/screens/Payment';
 import Batch from './components/screens/Batch';
+import FeeDetails from './components/screens/FeeDetails';
 
 
 // COMPONENTS
@@ -54,6 +55,7 @@ const Root = () => {
                     <Route path="/batchfee" element={<BatchFee />} />
                     <Route path="/payment" element={<Payment />} />
                     <Route path="/batches/:id" element={<Batch />} />
+                    <Route path="/fees/:id" element={<FeeDetails />} />
                 </Routes>
                 </>}
           </div>

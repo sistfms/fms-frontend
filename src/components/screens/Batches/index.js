@@ -13,10 +13,12 @@ const Batches = () => {
   const { userInfo } = userLogin;
 
   const [batches, setBatches] = React.useState([]);
+  const [departments, setDepartments] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
 
   // modal
   const [show, setShow] = useState(false);
+
 
   const fetchBatches = async () => {
     setLoading(true);
@@ -28,6 +30,16 @@ const Batches = () => {
       console.log(error);
     } finally{
       setLoading(false);
+    }
+  }
+
+  const fetchDepartments = async () => {
+    try {
+      const { data } = await axios.get('/departments');
+      setDepartments(data.map(department => ({text: department.name, value: department.name})));
+    } catch (error) {
+      messageApi.error("Error: " + error.message || "Failed to fetch Departments");
+      console.log(error);
     }
   }
 
@@ -47,6 +59,7 @@ const Batches = () => {
       navigate('/login');
     }else{
       fetchBatches();
+      fetchDepartments();
     }
 
   }, [userInfo]);
@@ -57,22 +70,27 @@ const Batches = () => {
       title: 'Batch ID',
       dataIndex: 'id',
       key: 'id',
+      sorter: (a, b) => a.id - b.id,
     },
     {
       title: 'Batch Name',
       dataIndex: 'name',
       key: 'name',
-      render: (name, record) => <a onClick={() => navigate(`/batches/${record.id}`)}>{name}</a>
+      render: (name, record) => <a onClick={() => navigate(`/batches/${record.id}`)}>{name}</a>,
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: 'Department',
       dataIndex: 'department_name',
       key: 'department_name',
+      filters: departments,
+      onFilter: (value, record) => record.department_name.indexOf(value) === 0,
     },
     {
       title: 'Start Date',
       dataIndex: 'start_year',
       key: 'start_year',
+      sorter: (a, b) => a.start_year - b.start_year,
     },
     {
       title: 'End Year',
@@ -83,6 +101,17 @@ const Batches = () => {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      filters: [
+        {
+          text: 'Active',
+          value: 'ACTIVE',
+        },
+        {
+          text: 'Standby',
+          value: 'CREATED',
+        },
+      ],
+      onFilter: (value, record) => record.status.indexOf(value) === 0,
       render: (status) => {
         switch (status) {
           case 'ACTIVE':
