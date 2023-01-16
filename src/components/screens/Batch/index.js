@@ -6,6 +6,7 @@ import { faUserGraduate, faIndianRupeeSign } from '@fortawesome/free-solid-svg-i
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import BackButton from '../../BackButton';
+import AddStudentModal from './AddStudentModal';
 
 const segmentedOptions = [
   {
@@ -43,8 +44,8 @@ const studentColumns = [
   },
   {
     title: 'Phone',
-    dataIndex: 'phone',
-    key: 'phone',
+    dataIndex: 'phone_number',
+    key: 'phone_number',
   },
   {
     title: 'status',
@@ -120,6 +121,10 @@ const Batch = () => {
 
   const [fees, setFees] = React.useState([]);
   const [feesLoading, setFeesLoading] = React.useState(false);
+
+  // Modal
+  const [addStudentModalVisible, setAddStudentModalVisible] = React.useState(false);
+  const [addFeeModalVisible, setAddFeeModalVisible] = React.useState(false);
   
 
   const getBatchDetails = async () => {
@@ -164,6 +169,15 @@ const Batch = () => {
     }
   }
 
+  const createStudentCallback = (data) => {
+    setAddFeeModalVisible(false);
+    if(data.status >= 200 && data.status < 300){
+      messageApi.success("Student added Successfully. Activation Email sent to Student");
+      getStudents();
+    }else{
+      messageApi.error("Error: " + data.message || "Failed to create Student");
+    }
+  }
 
   useEffect(() => {
     getBatchDetails();
@@ -202,7 +216,7 @@ const Batch = () => {
           <div className='page-header'>
             <h5>Students</h5>
             <div>
-              <Button type='primary'>Add Student</Button>
+              <Button type='primary' onClick={() => setAddStudentModalVisible(true)}>Add Student</Button>
               <Button style={{marginLeft: '1em'}}>Bulk Import</Button>
             </div>
           </div>
@@ -229,6 +243,7 @@ const Batch = () => {
       </div>
       </>
       )}
+      <AddStudentModal visible={addStudentModalVisible} setVisible={setAddStudentModalVisible} callback={createStudentCallback} />
     </>
   )
 };
