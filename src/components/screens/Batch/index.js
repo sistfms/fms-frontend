@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './style.css'
-import { Segmented, Descriptions, Skeleton, message, Tag, Button, Table, Divider } from 'antd';
+import { Segmented, Descriptions, Skeleton, message, Tag, Button, Table, Divider, Space } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGraduate, faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -170,6 +170,20 @@ const Batch = () => {
     }
   }
 
+  const activateBatch = async () => {
+    try{
+      setLoading(true);
+      const response = await axios.put(`/batches/${batchId}/activate`);
+      messageApi.success("Batch Activated Successfully");
+      getBatchDetails();
+    }catch(error){
+      messageApi.error("Error: " + error.message || "Failed to activate Batch");
+      console.log(error);
+    }finally{
+      setLoading(false);
+    }
+  }
+
   const createStudentCallback = (data) => {
     setAddFeeModalVisible(false);
     if(data.status >= 200 && data.status < 300){
@@ -177,6 +191,16 @@ const Batch = () => {
       getStudents();
     }else{
       messageApi.error("Error: " + data.message || "Failed to create Student");
+    }
+  }
+
+  const createFeeCallback = (data) => {
+    setAddFeeModalVisible(false);
+    if(data.status >= 200 && data.status < 300){
+      messageApi.success("Fee added Successfully");
+      getFees();
+    }else{
+      messageApi.error("Error: " + data.message || "Failed to create Fee");
     }
   }
 
@@ -208,7 +232,12 @@ const Batch = () => {
         <Descriptions.Item label="Department">{batchDetails.department_name}</Descriptions.Item>
         <Descriptions.Item label="Start Year">{batchDetails.start_year}</Descriptions.Item>
         <Descriptions.Item label="End Year">{batchDetails.end_year}</Descriptions.Item>
-        <Descriptions.Item label="Status">{batchDetails.status}</Descriptions.Item>
+        <Descriptions.Item label="Status">
+          <Space>
+          {batchDetails.status}
+          {batchDetails.status !== 'ACTIVE' && <a onClick={() => activateBatch()}>Activate</a>}  
+          </Space>
+        </Descriptions.Item>
       </Descriptions>
       <Divider>Batch Operations</Divider>
       <div className='segmented-tab-container'>
@@ -245,7 +274,7 @@ const Batch = () => {
       </>
       )}
       <AddStudentModal visible={addStudentModalVisible} setVisible={setAddStudentModalVisible} callback={createStudentCallback} />
-      <AddFeeModal visible={addFeeModalVisible} setVisible={setAddFeeModalVisible} />
+      <AddFeeModal visible={addFeeModalVisible} setVisible={setAddFeeModalVisible} callback={createFeeCallback} />
     </>
   )
 };
