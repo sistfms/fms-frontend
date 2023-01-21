@@ -38,7 +38,7 @@ const Root = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (window.location.pathname === '/login' || window.location.pathname === '/activate') {
+    if (window.location.pathname === '/activate') {
       return;
     }
     if (!userInfo) {

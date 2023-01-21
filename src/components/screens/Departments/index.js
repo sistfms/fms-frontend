@@ -48,6 +48,7 @@ const Departments = () => {
     if (!userInfo) {
       navigate('/login');
     }else{
+      if(userInfo.role !== 'ADMIN') navigate('/');
       fetchDepartments();
     }
 

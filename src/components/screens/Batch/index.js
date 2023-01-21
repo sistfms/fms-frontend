@@ -8,6 +8,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import BackButton from '../../BackButton';
 import AddStudentModal from './AddStudentModal';
 import AddFeeModal from './AddFeeModal';
+import { useSelector } from 'react-redux';
 
 const segmentedOptions = [
   {
@@ -25,6 +26,9 @@ const segmentedOptions = [
 
 
 const Batch = () => {
+
+  const userLogin = useSelector(state => state.userLogin);
+  const { userInfo } = userLogin;
 
   const studentColumns = [
     {
@@ -208,8 +212,14 @@ const Batch = () => {
   }
 
   useEffect(() => {
-    getBatchDetails();
-  }, []);
+    if (!userInfo) {
+      navigate('/login');
+    }else{
+      if(userInfo.role !== 'ADMIN') navigate('/');
+      getBatchDetails();
+    }
+  }, [userInfo]);
+
 
   useEffect(() => {
     if(activeTab === 'student' && students.length === 0){

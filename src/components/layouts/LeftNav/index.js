@@ -31,7 +31,36 @@ const LeftNav = () => {
 
   const [selectedKey, setSelectedKey] = useState('/');
 
-  const items = userLogin.userInfo ?  [
+  const studentItems = [
+    {
+      key: '/',
+      icon: <DashboardOutlined />,
+      label: 'Dashboard',
+    },
+    {
+      key: 'Profile',
+      icon: <FontAwesomeIcon icon={faUserCircle} />,
+      label: userLogin?.userInfo?.name,
+      style: { position: 'absolute', bottom: 35, marginBottom: 10 }
+    },
+    {
+      key: 'logout',
+      icon: <FontAwesomeIcon icon={faPowerOff} />,
+      label: 'Logout',
+      style: { position: 'absolute', bottom: 0, marginBottom: 10 }
+    }
+  ];
+
+  const unAuthItems = [
+    {
+      key: 'login',
+      icon: <FontAwesomeIcon icon={faSignIn} />,
+      label: 'Login',
+    }
+  ];
+
+
+  const adminItems = [
     {
       key: '/',
       icon: <DashboardOutlined />,
@@ -66,7 +95,7 @@ const LeftNav = () => {
     {
       key: 'Profile',
       icon: <FontAwesomeIcon icon={faUserCircle} />,
-      label: userLogin.userInfo.name,
+      label: userLogin?.userInfo?.name,
       style: { position: 'absolute', bottom: 35, marginBottom: 10 }
     },
     {
@@ -75,13 +104,9 @@ const LeftNav = () => {
       label: 'Logout',
       style: { position: 'absolute', bottom: 0, marginBottom: 10 }
     }
-  ] : [
-    {
-      key: 'login',
-      icon: <FontAwesomeIcon icon={faSignIn} />,
-      label: 'Login',
-    }
   ];
+
+  const items = userLogin.userInfo ? (userLogin.userInfo.role === 'STUDENT' ? studentItems : adminItems )  : unAuthItems;
 
   // if(!userLogin.userInfo) return <></>
 
@@ -106,7 +131,7 @@ const LeftNav = () => {
           (item) => {
             if(item.key === 'logout') {
               logoutHandler();
-              selectedKey = '/login';
+              setSelectedKey('/login');
             }else{
               setSelectedKey(item.key);
               navigate(item.key)
