@@ -52,7 +52,6 @@ const LeftNav = () => {
       key: 'batches',
       icon: <UsergroupDeleteOutlined />,
       label: 'Batches',
-      onclick: () => navigate('/batches')
     },
     {
       key: 'batchfee',
@@ -78,11 +77,13 @@ const LeftNav = () => {
     }
   ] : [
     {
-      key: '/login',
+      key: 'login',
       icon: <FontAwesomeIcon icon={faSignIn} />,
       label: 'Login',
     }
   ];
+
+  // if(!userLogin.userInfo) return <></>
 
   return (
     <Sider

@@ -10,6 +10,7 @@ import Students from './components/screens/Students';
 import Payment from './components/screens/Payment';
 import Batch from './components/screens/Batch';
 import FeeDetails from './components/screens/FeeDetails';
+import ActivateStudent from './components/screens/ActivateStudent';
 
 
 // COMPONENTS
@@ -40,7 +41,7 @@ const Root = () => {
     }
   }, []);
   return (
-    <Layout hasSider>
+    <Layout hasSider >
       <LeftNav />
       <Container>
           {contextHolder}
@@ -56,6 +57,7 @@ const Root = () => {
                     <Route path="/payment" element={<Payment />} />
                     <Route path="/batches/:id" element={<Batch />} />
                     <Route path="/fees/:id" element={<FeeDetails />} />
+                    <Route path="/activate" element={<ActivateStudent />} />
                 </Routes>
                 </>}
           </div>

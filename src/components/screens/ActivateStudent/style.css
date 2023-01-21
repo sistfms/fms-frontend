@@ -1,0 +1,33 @@
+.steps-container{
+  margin: 1em 2em;
+}
+
+.steps-content{
+  width: 60%;
+  margin: 2em auto;
+  min-height: 45vh;
+}
+
+.step-actions{
+  align-items: center;
+  margin : 0 auto;
+  width: 60%;
+}
+
+.step-actions button {
+  margin-left: 90%;
+}
+
+.batch-list {
+  margin: 2em 0;
+}
+
+.page-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form > div {
+  margin-top: .5rem;
+}
