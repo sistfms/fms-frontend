@@ -81,7 +81,6 @@ const CreateBatchModal = ({visible, setVisible, callback}) => {
   return (
     <Modal title="Create New Batch" okButtonProps={{ loading: createBatchLoading }} onOk={createBatch} open={visible} onCancel={() => setVisible(false)}>
         <Form 
-          
           {...layout} 
           style={{marginTop: '1em', display: 'flex', justifyContent:'center', flexDirection:'column', padding:'1em 0'}}>
           <Form.Item
