@@ -11,6 +11,7 @@ import Payment from './components/screens/Payment';
 import Batch from './components/screens/Batch';
 import FeeDetails from './components/screens/FeeDetails';
 import ActivateStudent from './components/screens/ActivateStudent';
+import CashEntry from './components/screens/CashEntry';
 
 
 // COMPONENTS
@@ -24,6 +25,7 @@ import { loadUser } from './actions/userActions';
 import LoadingIndicator from './components/LoadingIndicator';
 import Departments from './components/screens/Departments';
 import BatchFee from './components/screens/BatchFee';
+
 
 const Root = () => {
   const [messageApi, contextHolder] = message.useMessage();
@@ -58,6 +60,7 @@ const Root = () => {
                     <Route path="/batches/:id" element={<Batch />} />
                     <Route path="/fees/:id" element={<FeeDetails />} />
                     <Route path="/activate" element={<ActivateStudent />} />
+                    <Route path="/cashentry" element={<CashEntry />} />
                 </Routes>
                 </>}
           </div>

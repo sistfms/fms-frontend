@@ -39,7 +39,7 @@ const LeftNav = () => {
       
     },
     {
-      key: 'pos',
+      key: 'cashentry',
       icon: <FontAwesomeIcon icon={faStore} />,
       label: 'Cash Entry',
     },
