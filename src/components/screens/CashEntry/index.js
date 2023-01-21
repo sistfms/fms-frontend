@@ -21,11 +21,7 @@ const CashEntry = () => {
       render: (name, record) => <a >{name}</a>,
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
-    },
+    
     {
       title: 'Status',
       dataIndex: 'status',
@@ -40,6 +36,11 @@ const CashEntry = () => {
           value: 'CREATED',
         },
     ]
+    },
+    {
+      title: 'Actions',
+      dataIndex: 'actions',
+      key: 'actions',
     }
   ]
 
