@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom'
 import { DashboardOutlined, UsergroupDeleteOutlined } from '@ant-design/icons';
@@ -59,6 +59,14 @@ const LeftNav = () => {
     }
   ];
 
+  useEffect(() => {
+    if(window.location.pathname === '/activate') return
+    if(userLogin.userInfo){
+      setSelectedKey('/');
+    }else{
+      setSelectedKey('login');
+    } 
+  }, [userLogin.userInfo]);
 
   const adminItems = [
     {
@@ -108,7 +116,6 @@ const LeftNav = () => {
 
   const items = userLogin.userInfo ? (userLogin.userInfo.role === 'STUDENT' ? studentItems : adminItems )  : unAuthItems;
 
-  // if(!userLogin.userInfo) return <></>
 
   return (
     <Sider
