@@ -1,35 +1,30 @@
 import React, { useEffect } from 'react';
 import './style.css'
-import {  message, Table,Descriptions } from 'antd';
+import {  message, Table,Descriptions,Divider } from 'antd';
+
 
 const CashEntry = () => {
   const [messageApi, contextHolder] = message.useMessage()
-
+      
   const columns = [
 
     {
-      title: 'Batch ID',
+      title: 'Fee ID',
       dataIndex: 'id',
       key: 'id',
       sorter: (a, b) => a.id - b.id,
     },
     {
-      title: 'Batch Name',
+      title: 'Fee Name',
       dataIndex: 'name',
       key: 'name',
       render: (name, record) => <a >{name}</a>,
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Department',
-      dataIndex: 'department_name',
-      key: 'department_name',
-      onFilter: (value, record) => record.department_name.indexOf(value) === 0,
-    },
-    {
-      title: 'Amount',
-      dataIndex: 'amount',
-      key: 'amount',
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
     },
     {
       title: 'Status',
@@ -56,7 +51,6 @@ const CashEntry = () => {
         <h2>Cash Entry</h2>
       </div>
       <div className="batch-list">
-
         <Descriptions title="Student Details">
           <Descriptions.Item label="Student Name">Sefali Basnet</Descriptions.Item>
           <Descriptions.Item label="Batch Name">19CSEC</Descriptions.Item>
@@ -70,6 +64,7 @@ const CashEntry = () => {
     </div>
     
     </>
+    
   )
 }
 
