@@ -47,7 +47,7 @@ const AddStudentModal = ({visible, setVisible, callback}) => {
 
   return (
 
-    <Modal title="Add Student" okButtonProps={{ loading: addStudenLoading }} onOk={createStudent} open={visible} onCancel={() => setVisible(false)}>
+    <Modal style={{top: 20}} title="Add Student" okButtonProps={{ loading: addStudenLoading }} onOk={createStudent} open={visible} onCancel={() => setVisible(false)}>
       {contextHolder}
       <Form 
           ref={formRef}

@@ -19,11 +19,6 @@ const Home = () => {
   return (
     <>
     <div>Home</div>
-    <p>Hello Sefali</p>
-    <h1>Hello</h1>
-    <Button>My Button</Button>
-
-    
     </>
   )
 }

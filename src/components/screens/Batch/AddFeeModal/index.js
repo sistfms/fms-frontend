@@ -2,6 +2,7 @@ import React from "react";
 import {Modal,Form,Input,DatePicker} from "antd"
 import axios from "axios"
 import {useLocation} from "react-router-dom"
+import moment from "moment/moment";
 
 const AddFeeModal = (props)=>{
   const formRef=React.useRef()
@@ -23,18 +24,18 @@ const AddFeeModal = (props)=>{
     formRef.current.validateFields().then(async (values)=>{
       try{
         setAddFeeLoading(true)
-        let mysql_date = new Date(values.due_date).format("yyyy-mm-dd");
-        const {data} = await axios.post(`/batches/${batchId}/fees`,{
+        let mysql_date = moment(values.due_date).format("YYYY-MM-DD");
+        const res = await axios.post(`/batches/${batchId}/fees`,{
           name:values.name,
           amount:values.amount,
           due_date:mysql_date
         })
-        props.callback(data)
+        props.callback(res?.data)
         props.setVisible(false)
         formRef.current.resetFields()
       }catch(error){
-        props.callback(error.response.data)
         console.log(error)
+        props.callback(error.response.data);
       }finally{
         setAddFeeLoading(false)
       }
