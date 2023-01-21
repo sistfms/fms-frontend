@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './style.css'
-import { Button, Form, Steps, Input, message, Skeleton } from 'antd';
-import { SolutionOutlined, LockOutlined, IdcardOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Button, Form, Steps, Input, message, Skeleton, Result } from 'antd';
+import { SolutionOutlined, LockOutlined, IdcardOutlined, LoadingOutlined, LoginOutlined } from '@ant-design/icons';
 import { faCheckCircle, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -78,13 +78,15 @@ const ActivateStudent = () => {
   
   const ConfirmComponent = () => {
     return (
-     <div style={{width: '50%', display:'flex', flexDirection:'column', margin: '0 auto'}}>
-        <FontAwesomeIcon icon={faCheckCircle} style={{fontSize: '5em', color: '#52c41a', margin: '0 auto'}} />
-        <h4 style={{textAlign: 'center'}}>Your account has been activated successfully</h4>
-        <p style={{textAlign: 'center'}}>You can now login to your account</p>
-        <Button type="primary" style={{width: '100%'}} onClick={() => navigate('/login')}>Login</Button>
-      </div>
-    )
+      <Result status="success" title="Your account has been activated successfully" subTitle="You can now login to your account"
+        icon={<FontAwesomeIcon icon={faCheckCircle} style={{fontSize: '5em', color: '#52c41a'}} />}
+        extra={[
+          <Button icon={<LoginOutlined/>} type="primary" key="console" onClick={() => navigate('/login')}>
+            Login
+          </Button>
+        ]}
+      />
+    );
   }
 
   const steps = [{

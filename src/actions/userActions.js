@@ -73,10 +73,13 @@ export const logoutUser = () => async (dispatch) => {
         'WithCredentials': true,
       },
     };
-    await axios.get(`/logout`, {}, config);
+    const res = await axios.get(`/logout`, {}, config);
     dispatch({
       type: USER_LOGOUT
     })
+    if (res.status >= 200 && res.status < 400) {
+      window.location.reload();
+    }
   } catch (error) {
     console.log("logout error", error)
   }

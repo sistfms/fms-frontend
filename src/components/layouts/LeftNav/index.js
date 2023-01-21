@@ -25,7 +25,6 @@ const LeftNav = () => {
   const userLogin = useSelector(state => state.userLogin);
   const dispatch = useDispatch();
   const logoutHandler = () => {
-    console.log('logout');
     dispatch(logoutUser())
   };
 
@@ -138,7 +137,6 @@ const LeftNav = () => {
           (item) => {
             if(item.key === 'logout') {
               logoutHandler();
-              setSelectedKey('/login');
             }else{
               setSelectedKey(item.key);
               navigate(item.key)
