@@ -81,7 +81,7 @@ const ActivateStudent = () => {
       <Result status="success" title="Your account has been activated successfully" subTitle="You can now login to your account"
         icon={<FontAwesomeIcon icon={faCheckCircle} style={{fontSize: '5em', color: '#52c41a'}} />}
         extra={[
-          <Button icon={<LoginOutlined/>} type="primary" key="console" onClick={() => navigate('/login')}>
+          <Button icon={<LoginOutlined/>} type="primary" key="console" href='/login'>
             Login
           </Button>
         ]}

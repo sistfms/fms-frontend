@@ -5,6 +5,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGOUT,
   USER_LOAD_FAILED,
+  USER_LOGOUT_REQUEST,
 } from '../constants/userLoginConstants';
 import { GATEWAY_URL } from '../constants'
 export const login = (email, password) => async (dispatch) => {
@@ -64,7 +65,7 @@ export const loadUser = () => async (dispatch) => {
 
 export const logoutUser = () => async (dispatch) => {
   dispatch({
-    type: USER_LOGIN_REQUEST
+    type: USER_LOGOUT_REQUEST
   })
   try {
     const config = {
@@ -77,9 +78,6 @@ export const logoutUser = () => async (dispatch) => {
     dispatch({
       type: USER_LOGOUT
     })
-    if (res.status >= 200 && res.status < 400) {
-      window.location.reload();
-    }
   } catch (error) {
     console.log("logout error", error)
   }
