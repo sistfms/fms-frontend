@@ -1,13 +1,14 @@
 import { Button, Descriptions, Divider, Space, Table, Tooltip, message, Tag, Card, Skeleton } from 'antd'
 import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileDownload, faHistory, faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import { faFileDownload, faHistory, faIndianRupeeSign, faEye } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 
 const StudentDashboard = () => {
+
   const columns = [
     {
       title: 'Fee ID',
@@ -18,7 +19,7 @@ const StudentDashboard = () => {
       title: 'Fee Name',
       dataIndex: 'name',
       key: 'name',
-      render: (name) => <><Button type="link">{name}</Button></>
+      render: (name, row) => <><Button type="link" onClick={() => navigate(`/payment/${row?.id}`)}>{name}</Button></>
     },
     {
       title: 'Amount',
@@ -31,16 +32,16 @@ const StudentDashboard = () => {
       dataIndex: 'payment_status',
       key: 'payment_status',
       render: (status, row) => {
-        if (moment(row.due_date) < moment() && status !== 'PAID')
+        if (moment(row.due_date) < moment() && status !== 'captured')
           return <Tag color="red">Overdue</Tag>;
       
-        switch (status?.toUpperCase()) {
-          case 'PAID':
-            return <Tag color="green">Paid</Tag>;
-          case 'PENDING':
-            return <Tag color="blue">Pending</Tag>;
+        switch (status) {
+          case 'captured':
+            return <Tag color="green">PAID</Tag>;
+          case 'authorized':
+            return <Tag color="blue">PENDING</Tag>;
           default:
-            return <Tag color="red">Un Paid</Tag>;
+            return <Tag color="red">UN PAID</Tag>;
         }
       }
     },
@@ -52,24 +53,25 @@ const StudentDashboard = () => {
     },
     {
       title: 'Payment Date',
-      dataIndex: 'paid_date',
-      key: 'paid_date',
+      dataIndex: 'payment_date',
+      key: 'payment_date  ',
+      render: (paymentDate) => paymentDate ? moment(paymentDate).format('Do MMMM, YYYY') : '-'
     },
     {
       title: 'Actions',
       dataIndex: 'actions',
       key: 'actions',
       render: (actions, row) => {
-        if (row.payment_status?.toUpperCase() !== 'PAID'){
+        if (row.payment_status !== 'captured'){
           return <Button>Pay Now</Button>
         }
         return (
           <Space>
-            <Tooltip title="Download Reciept">
-              <Button shape='circle' icon={<FontAwesomeIcon icon={faFileDownload} />} onClick={() => console.log(row)} />
+            <Tooltip title="View Details">
+              <Button onClick={() => navigate(`/payment/${row.id}`)} shape='circle' icon={<FontAwesomeIcon icon={faEye} />} />
             </Tooltip>
-            <Tooltip title="Show Transactions">
-              <Button shape='circle' icon={<FontAwesomeIcon icon={faHistory} />} onClick={() => console.log(row)} />
+            <Tooltip title="Download Reciept">
+              <Button onClick={() => navigate(`/receipt/${row.id}`)} shape='circle' icon={<FontAwesomeIcon icon={faFileDownload} />}  />
             </Tooltip>
           </Space>
         );
@@ -79,6 +81,14 @@ const StudentDashboard = () => {
 
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login');
+    }
+    if (userInfo && userInfo.role !== 'STUDENT') {
+      navigate('/login');
+    }
+  }, [userInfo]);
 
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
@@ -100,7 +110,7 @@ const StudentDashboard = () => {
   const fetchStudentDetails = async () => {
     try {
       setStudentDetailsLoading(true);
-      const res = await axios.post('/students/getStudentByUserId', {
+      const res = await axios.post('/api/students/getStudentByUserId', {
         user_id: userInfo.user_id
       })
       if (res.status >= 200 && res.status < 400) {
@@ -118,7 +128,7 @@ const StudentDashboard = () => {
   const fetchFeeReport = async (student_id) => {
     try {
       setFeeDetailsLoading(true);
-      const res = await axios.get(`/fees/student/${student_id}`);
+      const res = await axios.get(`/api/fees/student/${student_id}`);
       if (res.status >= 200 && res.status < 400) {
         setFeeDetails(res.data);
       }
@@ -129,7 +139,6 @@ const StudentDashboard = () => {
       setFeeDetailsLoading(false);
     }
   }
-
 
   useEffect(() => {
     fetchStudentDetails();

@@ -24,7 +24,7 @@ const Departments = () => {
   const fetchDepartments = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/departments');
+      const { data } = await axios.get('/api/departments');
       setDepartments(data);
     } catch (error) {
       messageApi.error("Error: " + error.message || "Failed to fetch Departments");
@@ -65,7 +65,7 @@ const Departments = () => {
       title: 'Department Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text, record) => <a href={`/batches/${record.id}`}>{text}</a>,
+      render: (text, record) => <Button type="link" onClick={() => navigate(`/batches`)}>{text}</Button>,
     },
     {
       title: 'Department Code',

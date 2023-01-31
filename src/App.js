@@ -7,11 +7,11 @@ import Home from './components/screens/Home';
 import Login from './components/screens/Login';
 import Batches from './components/screens/Batches';
 import Students from './components/screens/Students';
-import Payment from './components/screens/Payment';
 import Batch from './components/screens/Batch';
 import FeeDetails from './components/screens/FeeDetails';
 import ActivateStudent from './components/screens/ActivateStudent';
 import CashEntry from './components/screens/CashEntry';
+import Payment from './components/screens/Payment';
 
 
 // COMPONENTS
@@ -25,6 +25,7 @@ import { loadUser } from './actions/userActions';
 import LoadingIndicator from './components/LoadingIndicator';
 import Departments from './components/screens/Departments';
 import BatchFee from './components/screens/BatchFee';
+import RecieptScreen from './components/screens/RecieptScreen';
 
 
 const Root = () => {
@@ -64,6 +65,8 @@ const Root = () => {
                     <Route path="/fees/:id" element={<FeeDetails />} />
                     <Route path="/activate" element={<ActivateStudent />} />
                     <Route path="/cashentry" element={<CashEntry />} />
+                    <Route path="/payment/:feeId" element={<Payment />} />
+                    <Route path="receipt/:feeId" element={<RecieptScreen />} />
                 </Routes>
                 </>}
           </div>

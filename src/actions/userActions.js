@@ -21,7 +21,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(`/login`, {email, password}, config);
+    const { data } = await axios.post(`/api/login`, {email, password}, config);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
@@ -50,7 +50,7 @@ export const loadUser = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`/refresh`, config);
+    const { data } = await axios.get(`/api/refresh`, config);
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
@@ -74,7 +74,7 @@ export const logoutUser = () => async (dispatch) => {
         'WithCredentials': true,
       },
     };
-    const res = await axios.get(`/logout`, {}, config);
+    const res = await axios.get(`/api/logout`, {}, config);
     dispatch({
       type: USER_LOGOUT
     })

@@ -23,7 +23,7 @@ const AddStudentModal = ({visible, setVisible, callback}) => {
     formRef.current.validateFields().then(async (values) => {
       try {
         setAddStudentLoading(true);
-        const { data } = await axios.post('/students', {
+        const { data } = await axios.post('/api/students', {
           name: values.name,
           email: values.email,
           batch_id: batchId,

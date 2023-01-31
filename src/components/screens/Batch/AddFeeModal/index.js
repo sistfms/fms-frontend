@@ -25,7 +25,7 @@ const AddFeeModal = (props)=>{
       try{
         setAddFeeLoading(true)
         let mysql_date = moment(values.due_date).format("YYYY-MM-DD");
-        const res = await axios.post(`/batches/${batchId}/fees`,{
+        const res = await axios.post(`/api/batches/${batchId}/fees`,{
           name:values.name,
           amount:values.amount,
           due_date:mysql_date

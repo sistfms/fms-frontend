@@ -23,7 +23,7 @@ const Batches = () => {
   const fetchBatches = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/batches');
+      const { data } = await axios.get('/api/batches');
       setBatches(data);
     } catch (error) {
       messageApi.error("Error: " + error.message || "Failed to fetch Batches");
@@ -35,7 +35,7 @@ const Batches = () => {
 
   const fetchDepartments = async () => {
     try {
-      const { data } = await axios.get('/departments');
+      const { data } = await axios.get('/api/departments');
       setDepartments(data.map(department => ({text: department.name, value: department.name})));
     } catch (error) {
       messageApi.error("Error: " + error.message || "Failed to fetch Departments");

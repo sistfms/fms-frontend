@@ -14,7 +14,7 @@ const CreateDepatmentModal = ({visible, setVisible, callback}) => {
     formRef.current.validateFields().then(async (values) => {
       setCreateDepartmentLoading(true);
       try {
-        const { data } = await axios.post('/departments', {
+        const { data } = await axios.post('/api/departments', {
           name: values.name,
           code: values.code
         });

@@ -138,7 +138,7 @@ const Batch = () => {
   const getBatchDetails = async () => {
     try{
       setLoading(true);
-      const response = await axios.get(`/batches/${batchId}`);
+      const response = await axios.get(`/api/batches/${batchId}`);
       setBatchDetails(response.data);
     }catch(error){
       messageApi.error("Error: " + error.message || "Failed to fetch Batch Details");
@@ -154,7 +154,7 @@ const Batch = () => {
   const getStudents = async () => {
     try{
       setStudentsLoading(true);
-      const response = await axios.get(`/batches/${batchId}/students`);
+      const response = await axios.get(`/api/batches/${batchId}/students`);
       setStudents(response.data);
     }catch(error){
       messageApi.error("Error: " + error.message || "Failed to fetch Students");
@@ -167,7 +167,7 @@ const Batch = () => {
   const getFees = async () => {
     try{
       setFeesLoading(true);
-      const response = await axios.get(`/batches/${batchId}/fees`);
+      const response = await axios.get(`/api/batches/${batchId}/fees`);
       setFees(response.data);
     }catch(error){
       messageApi.error("Error: " + error.message || "Failed to fetch Fees");
@@ -180,7 +180,7 @@ const Batch = () => {
   const activateBatch = async () => {
     try{
       setLoading(true);
-      const response = await axios.put(`/batches/${batchId}/activate`);
+      const response = await axios.put(`/api/batches/${batchId}/activate`);
       messageApi.success("Batch Activated Successfully");
       getBatchDetails();
     }catch(error){
@@ -232,7 +232,7 @@ const Batch = () => {
 
   return (
     <>
-      <BackButton />
+      <BackButton path="/batches" />
       {contextHolder}
       <div className='page-header'>
         <h2>Batch Management</h2>

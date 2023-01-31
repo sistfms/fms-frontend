@@ -112,7 +112,7 @@ const ActivateStudent = () => {
   const fetchStudentDetails = async () => {
     try {
       setStudentDetailsLoading(true);
-      const response = await axios.get(`/students/getStudentByToken?token=${token}`)
+      const response = await axios.get(`/api/students/getStudentByToken?token=${token}`)
       setStudentDetails(response.data);
       if(response.data.status === 'ACTIVE'){
         messageApi.success('Your account is already activated');
@@ -137,7 +137,7 @@ const ActivateStudent = () => {
     }
     try {
       setLoading(true);
-      const response = await axios.post(`/students/activateStudent`, {
+      const response = await axios.post(`/api/students/activateStudent`, {
         password: values.password,
         token
       })

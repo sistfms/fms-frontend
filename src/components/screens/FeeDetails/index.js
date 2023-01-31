@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import moment from 'moment/moment';
 import { Descriptions, Divider, Skeleton,Table, message, Tag } from 'antd';
 import { useLocation } from 'react-router-dom';
 import BackButton from '../../BackButton';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const FeeDetails = () => {
   const feeReportColumns = [
@@ -78,6 +80,18 @@ const FeeDetails = () => {
     },
   ];
   const location = useLocation();
+  const navigate = useNavigate();
+  const { userInfo } = useSelector(state => state.userLogin);
+
+  useEffect(() => {
+    if (!userInfo) {
+      navigate('/login');
+    }
+    if (userInfo.role !== 'ADMIN') {
+      navigate('/');
+    }
+  }, [userInfo]);
+
   const feeId = location.pathname.split('/')[2];
   const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = React.useState(false);
@@ -88,7 +102,7 @@ const FeeDetails = () => {
   const fetchFeeDetails = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/fees/${feeId}`)
+      const response = await axios.get(`/api/fees/${feeId}`)
       setFeeDetails(response.data);
       console.log("Fee Details", response.data);
       fetchFeeReport();
@@ -103,7 +117,7 @@ const FeeDetails = () => {
   const fetchFeeReport = async () => {
     try {
       setFeeReportLoading(true);
-      const response = await axios.get(`/fees/${feeId}/report`)
+      const response = await axios.get(`/api/fees/${feeId}/report`)
       let report = response.data.map(record => ({
         id: record.student.id,
         name: record.student.name,
@@ -126,7 +140,7 @@ const FeeDetails = () => {
   }, [feeId])
 
   return (<>
-  <BackButton />
+  <BackButton path={`/batches/${feeDetails.batch_id}`}  />
   <div className='page-hrader'>
     <h2>Fee Details</h2>
   </div>

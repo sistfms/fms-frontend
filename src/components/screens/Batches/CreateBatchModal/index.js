@@ -31,7 +31,7 @@ const CreateBatchModal = ({visible, setVisible, callback}) => {
   const fetchDepartments = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('/departments');
+      const { data } = await axios.get('/api/departments');
       setDepartments(data);
       setOptions(data.map(department => ({value: department.id, label: department.name})));
       console.log("Options", options)
@@ -45,7 +45,7 @@ const CreateBatchModal = ({visible, setVisible, callback}) => {
   const createBatch = async () => {
     setCreateBatchLoading(true);
     try {
-      const { data } = await axios.post('/batches', {
+      const { data } = await axios.post('/api/batches', {
         name,
         start_year: startYear,
         end_year: endYear,
