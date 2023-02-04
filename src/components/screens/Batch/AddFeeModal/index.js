@@ -21,10 +21,10 @@ const AddFeeModal = (props)=>{
 
 
   const addFee = async ()=>{
-    formRef.current.validateFields().then(async (values)=>{
+    formRef.current.validateFields().then(async (values)=>{      
       try{
         setAddFeeLoading(true)
-        let mysql_date = moment(values.due_date).format("YYYY-MM-DD");
+        let mysql_date = `${values.due_date.year()}-${values.due_date.month()+1}-${values.due_date.date()}`;
         const res = await axios.post(`/api/batches/${batchId}/fees`,{
           name:values.name,
           amount:values.amount,
@@ -70,8 +70,10 @@ const AddFeeModal = (props)=>{
           label="Due date"
           name="due_date"
           rules={[
-            { required: true, message: 'Amount is required' },]}>
-            <DatePicker name="due_date" style={{width:"100%"}}/>   
+            { required: true, message: 'Due Date is Required' },]}>
+            <DatePicker
+             disabledDate={(current) => current && current < moment().endOf('day')}
+             name="due_date" style={{width:"100%"}}/>   
         </Form.Item>
       </Form>
       </Modal>

@@ -63,7 +63,7 @@ const StudentDashboard = () => {
       key: 'actions',
       render: (actions, row) => {
         if (row.payment_status !== 'captured'){
-          return <Button>Pay Now</Button>
+          return <Button onClick={() => navigate(`/payment/${row?.id}`)}>Pay Now</Button>
         }
         return (
           <Space>

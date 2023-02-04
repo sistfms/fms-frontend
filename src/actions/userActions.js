@@ -78,6 +78,7 @@ export const logoutUser = () => async (dispatch) => {
     dispatch({
       type: USER_LOGOUT
     })
+    window.reload();
   } catch (error) {
     console.log("logout error", error)
   }

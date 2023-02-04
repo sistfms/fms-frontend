@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Modal, Form, Input, Select, notification, Descriptions } from 'antd';
+import { Modal, notification, Descriptions } from 'antd';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';

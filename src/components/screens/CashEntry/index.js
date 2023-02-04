@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import './style.css'
-import {  message, Table,Descriptions,AutoComplete, Input, Empty, Button, Tag, Space, Tooltip } from 'antd';
+import {  message, Table,Descriptions,AutoComplete, Input, Empty, Button, Tag, Space, } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileDownload, faHistory, faIndianRupeeSign, faEye } from '@fortawesome/free-solid-svg-icons';
+import {  faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import moment from 'moment';
 import CashEntryModal from './CashEntryModal';
@@ -86,12 +85,7 @@ const CashEntry = () => {
         }
         return (
           <Space>
-            <Tooltip title="View Details">
-              <Button onClick={() => navigate(`/payment/${row.id}`)} shape='circle' icon={<FontAwesomeIcon icon={faEye} />} />
-            </Tooltip>
-            <Tooltip title="Download Reciept">
-              <Button onClick={() => navigate(`/receipt/${row.id}`)} shape='circle' icon={<FontAwesomeIcon icon={faFileDownload} />}  />
-            </Tooltip>
+           
           </Space>
         );
       }
@@ -109,8 +103,8 @@ const CashEntry = () => {
   // Modal
   const [CashEntryModalVisible, setCashEntryModalVisible] = React.useState(false);
   
-  const CashEntryCallback = (value) => {
-    console.log(value)
+  const CashEntryCallback = () => {
+    fetchFeeReport(currentStudentData.id);
   }
 
   const handleSearch = async (value) => {

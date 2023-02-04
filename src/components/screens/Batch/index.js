@@ -61,7 +61,7 @@ const Batch = () => {
       dataIndex: 'status',
       key: 'status',
       render: (status) => {
-        let color = status === 'active' ? 'green' : 'volcano';
+        let color = status.toLowerCase() === 'active' ? 'green' : 'volcano';
         return (
           <Tag color={color} key={status}>
             {status.toUpperCase()}
@@ -260,7 +260,6 @@ const Batch = () => {
             <h5>Students</h5>
             <div>
               <Button type='primary' onClick={() => setAddStudentModalVisible(true)}>Add Student</Button>
-              <Button style={{marginLeft: '1em'}}>Bulk Import</Button>
             </div>
           </div>
          
