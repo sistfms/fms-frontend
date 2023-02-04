@@ -66,10 +66,10 @@ const AdminDashboard = () => {
               <Statistic title="Total Fee Collection" value={stats?.total_payment} precision={2}  />
             </Col>
             <Col span={8}>
-              <Statistic title="Cash Payments" value={stats?.total_cash_payment}  />
+              <Statistic title="Cash Payments" value={stats?.total_cash_payment} precision={2}  />
             </Col>
             <Col span={8}>
-              <Statistic title="Online Payments" value={stats?.total_online_payment}  />
+              <Statistic title="Online Payments" value={stats?.total_online_payment} precision={2}  />
             </Col>
           </Row>
        </div>
@@ -82,8 +82,8 @@ const AdminDashboard = () => {
             dataKey="value"
             isAnimationActive={true}
             data={[
-              { name: 'Cash Payments', value: stats?.total_cash_payment ? stats.total_cash_payment : 0 },
-              { name: 'Online Payments', value: stats?.total_online_payment ? stats.total_online_payment : 0 },
+              { name: 'Cash Payments', value: stats?.total_cash_payment && stats.total_cash_payment ? stats.total_cash_payment : 0 },
+              { name: 'Online Payments', value: stats?.total_online_payment && stats.total_online_payment ? stats.total_online_payment : 0 },
             ]}
             cx={200}
             cy={200}

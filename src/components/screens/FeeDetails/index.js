@@ -73,11 +73,6 @@ const FeeDetails = () => {
         },
       ]
     },
-    {
-      title: 'Collected By',
-      dataIndex: 'collected_by',
-      key: 'collected_by',
-    },
   ];
   const location = useLocation();
   const navigate = useNavigate();

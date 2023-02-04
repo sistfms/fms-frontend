@@ -89,16 +89,7 @@ const LeftNav = () => {
       icon: <UsergroupDeleteOutlined />,
       label: 'Batches',
     },
-    {
-      key: 'batchfee',
-      icon: <FontAwesomeIcon icon={faRupee} />,
-      label: 'Fee Management',
-    },
-    {
-      key: 'student',
-      icon: <FontAwesomeIcon icon={faUserGraduate} />,
-      label: 'Students',
-    },
+    
     {
       key: 'Profile',
       icon: <FontAwesomeIcon icon={faUserCircle} />,

@@ -75,12 +75,20 @@ export const logoutUser = () => async (dispatch) => {
       },
     };
     const res = await axios.get(`/api/logout`, {}, config);
-    dispatch({
-      type: USER_LOGOUT
-    })
-    window.reload();
+    if (res.status >= 200 && res.status < 300) {
+      dispatch({
+        type: USER_LOGOUT
+      })
+    }else {
+      throw new Error("Logout failed")
+    }
   } catch (error) {
     console.log("logout error", error)
+    alert("Logout failed")
+  } finally {
+    setTimeout(() => {
+      window.location.reload('/')
+    }, 1000);
   }
 }
   
